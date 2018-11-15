@@ -2,9 +2,11 @@ package fr.diginamic.model;
 
 import java.util.Scanner;
 
-public abstract class MenuService {
+import fr.diginamic.exception.StockageException;
+
+public abstract class MenuService{
 	
-	void executeUC(Scanner scanner, QuestionDao dao) {
+	void executeUC(Scanner scanner, QuestionDao dao) throws StockageException{
 		
 	}
 

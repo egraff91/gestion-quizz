@@ -2,6 +2,8 @@ package fr.diginamic.console;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import fr.diginamic.exception.StockageException;
 import fr.diginamic.model.*;
 
 public class QuizzAdminConsoleApp {
@@ -53,11 +55,21 @@ public class QuizzAdminConsoleApp {
 					break;
 					case 2: System.out.println("Ajout d'une nouvelle question");
 					//questionDao.save(nouvelleQuestion(questionUser));
-					ajoutService.executeUC(questionUser, questionDao);
+					try {
+						ajoutService.executeUC(questionUser, questionDao);
+					}catch (StockageException e){
+						System.out.println(e.getMessage());
+					}
+					
 					
 					break;
 					case 3: System.out.println("Suppression d'une question");
-					suppService.executeUC(questionUser, questionDao);
+					try {
+						suppService.executeUC(questionUser, questionDao);
+					}catch (StockageException e) {
+						System.out.println(e.getMessage());
+					}
+					
 					/*System.out.println("Veuillez indiquer le numéro de la question à supprimer (entre 1 et "+questions.size()+")");
 					int indexSuppr = Integer.parseInt(questionUser.nextLine());
 					questionDao.delete(questions.get(indexSuppr-1));*/
