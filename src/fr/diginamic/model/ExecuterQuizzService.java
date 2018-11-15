@@ -14,7 +14,12 @@ public class ExecuterQuizzService extends MenuService{
 			String reponse = scanner.nextLine();
 			if(questions.get(i).verifierReponse(reponse)) {
 				System.out.println("Bonne réponse");
-				score++;
+				if(questions.get(i).getType().equals(TypeQuestion.BONUS)) {
+					score = score+2;
+				}else {
+					score++;
+				}
+				
 			}else {
 				System.out.println("Mauvaise réponse");
 			}

@@ -7,11 +7,13 @@ public class Question {
 	private String intitule;
 	private ArrayList<String> propositions;
 	private String bonneReponse;
+	private TypeQuestion type;
 	
 	public Question(String intitule, String bonneReponse) {
 		this.intitule = intitule;
 		this.bonneReponse = bonneReponse;
 		this.propositions = new ArrayList<String>();
+		this.type = TypeQuestion.SIMPLE;
 	}
 	
 	public String getIntitule() {
@@ -36,6 +38,14 @@ public class Question {
 
 	public void setBonneReponse(String bonneReponse) {
 		this.bonneReponse = bonneReponse;
+	}
+	
+	public void setType(String type) {
+		this.type = TypeQuestion.valueOf(type);
+	}
+	
+	public TypeQuestion getType() {
+		return this.type;
 	}
 
 	public boolean verifierReponse(String reponse) {

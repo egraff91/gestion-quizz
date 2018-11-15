@@ -9,6 +9,8 @@ public class AjouterQuestionService extends MenuService{
 	
 	public void executeUC(Scanner scanner, QuestionDao dao) throws AjouterQuestionException{
 		ArrayList<String> propositions = new ArrayList<String>();
+		System.out.println("Souhaitez-vous créer uen question SIMPLE ou BONUS ?: ");
+		String type = scanner.nextLine();
 		System.out.println("Veuillez saisir l'intitulé de la question: ");
 		String intitule = scanner.nextLine();
 		System.out.println("Veuillez saisir le nombre de réponses: ");
@@ -26,6 +28,7 @@ public class AjouterQuestionService extends MenuService{
 		String bonneReponse = propositions.get(indexReponse-1);
 		
 		Question nouvelleQuestion = new Question(intitule,bonneReponse);
+		nouvelleQuestion.setType(type);
 		//System.out.println("test");
 		nouvelleQuestion.setPropositions(propositions);
 		dao.save(nouvelleQuestion);
