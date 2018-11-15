@@ -10,7 +10,7 @@ public class QuizzAdminConsoleApp {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ArrayList<Question> questions = new ArrayList<Question>();
+		//ArrayList<Question> questions = new ArrayList<Question>();
 		
 		
 		Question question1 = new Question("Quelle est la capitale de la France ?", "Paris");
@@ -25,10 +25,20 @@ public class QuizzAdminConsoleApp {
 		question2.addProposition("1970");
 		question2.addProposition("1971");
 		
-		questions.add(question1);
-		questions.add(question2);
+		QuestionMemDao questionDao = new QuestionMemDao();
+		/*questions.add(question1);
+		questions.add(question2);*/
+		
+		questionDao.save(question1);
+		questionDao.save(question2);
+		
+		//ArrayList<Question> questions = (ArrayList<Question>) questionDao.findAll();
 		
 		Scanner questionUser = new Scanner(System.in);
+		ListerQuestionsService listeService = new ListerQuestionsService();
+		AjouterQuestionService ajoutService = new AjouterQuestionService();
+		SupprimerQuestionService suppService = new SupprimerQuestionService();
+		ExecuterQuizzService execService = new ExecuterQuizzService();
 		
 		boolean sortir = false;
 		while (!sortir) {
@@ -37,19 +47,25 @@ public class QuizzAdminConsoleApp {
 		
 			switch(a) {
 				case 1: System.out.println("Liste des questions");
-					afficheQuestions(questions);
+					//afficheQuestions(questions);
+					listeService.executeUC(questionUser, questionDao);
 					
 					break;
 					case 2: System.out.println("Ajout d'une nouvelle question");
-					questions.add(nouvelleQuestion(questionUser));
+					//questionDao.save(nouvelleQuestion(questionUser));
+					ajoutService.executeUC(questionUser, questionDao);
 					
 					break;
 					case 3: System.out.println("Suppression d'une question");
-					supprimeQuestion(questions, questionUser);
+					suppService.executeUC(questionUser, questionDao);
+					/*System.out.println("Veuillez indiquer le numéro de la question à supprimer (entre 1 et "+questions.size()+")");
+					int indexSuppr = Integer.parseInt(questionUser.nextLine());
+					questionDao.delete(questions.get(indexSuppr-1));*/
 					
 					break;
 					case 4: System.out.println("Exécution du quizz");
-					startQuizz(questions, questionUser);
+					execService.executeUC(questionUser, questionDao);
+					//startQuizz(questions, questionUser);
 					
 					break;
 					case 99: System.out.println("Au revoir");
@@ -104,12 +120,12 @@ public class QuizzAdminConsoleApp {
 		return nouvelleQuestion;
 	}
 	
-	public static void supprimeQuestion(ArrayList<Question> questions, Scanner questionUser) {
+	/*public static void supprimeQuestion(ArrayList<Question> questions, Scanner questionUser) {
 		System.out.println("Veuillez indiquer le numéro de la question à supprimer (entre 1 et "+questions.size()+")");
 		int indexSuppr = Integer.parseInt(questionUser.nextLine());
 		questions.remove(indexSuppr-1);
 		
-	}
+	}*/
 	
 	public static void startQuizz(ArrayList<Question> questions, Scanner questionUser) {
 		int score = 0;
