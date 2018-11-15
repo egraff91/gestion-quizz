@@ -1,6 +1,5 @@
 package fr.diginamic.console;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import fr.diginamic.exception.StockageException;
@@ -11,8 +10,6 @@ public class QuizzAdminConsoleApp {
 	
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//ArrayList<Question> questions = new ArrayList<Question>();
 		
 		
 		Question question1 = new Question("Quelle est la capitale de la France ?", "Paris");
@@ -28,63 +25,61 @@ public class QuizzAdminConsoleApp {
 		question2.addProposition("1971");
 		
 		QuestionMemDao questionDao = new QuestionMemDao();
-		/*questions.add(question1);
-		questions.add(question2);*/
-		
+
 		questionDao.save(question1);
 		questionDao.save(question2);
 		
-		//ArrayList<Question> questions = (ArrayList<Question>) questionDao.findAll();
-		
 		Scanner questionUser = new Scanner(System.in);
+		
 		ListerQuestionsService listeService = new ListerQuestionsService();
 		AjouterQuestionService ajoutService = new AjouterQuestionService();
 		SupprimerQuestionService suppService = new SupprimerQuestionService();
 		ExecuterQuizzService execService = new ExecuterQuizzService();
 		
 		boolean sortir = false;
+		
 		while (!sortir) {
+			
 			afficheMenu();
+			
 			int a = Integer.parseInt(questionUser.nextLine());
 		
 			switch(a) {
-				case 1: System.out.println("Liste des questions");
-					//afficheQuestions(questions);
+				case 1: 
+					System.out.println("Liste des questions");
 					listeService.executeUC(questionUser, questionDao);
-					
 					break;
-					case 2: System.out.println("Ajout d'une nouvelle question");
-					//questionDao.save(nouvelleQuestion(questionUser));
+					
+				case 2: 
+					System.out.println("Ajout d'une nouvelle question");
 					try {
 						ajoutService.executeUC(questionUser, questionDao);
 					}catch (StockageException e){
 						System.out.println(e.getMessage());
 					}
-					
-					
 					break;
-					case 3: System.out.println("Suppression d'une question");
+					
+				case 3: 
+					System.out.println("Suppression d'une question");
 					try {
 						suppService.executeUC(questionUser, questionDao);
 					}catch (StockageException e) {
 						System.out.println(e.getMessage());
 					}
-					
-					/*System.out.println("Veuillez indiquer le numéro de la question à supprimer (entre 1 et "+questions.size()+")");
-					int indexSuppr = Integer.parseInt(questionUser.nextLine());
-					questionDao.delete(questions.get(indexSuppr-1));*/
-					
 					break;
-					case 4: System.out.println("Exécution du quizz");
+					
+				case 4: 
+					System.out.println("Exécution du quizz");
 					execService.executeUC(questionUser, questionDao);
-					//startQuizz(questions, questionUser);
-					
 					break;
-					case 99: System.out.println("Au revoir");
+					
+				case 99: 
+					System.out.println("Au revoir");
 					questionUser.close();
 					sortir = true;
 					break;
-					default: break;
+					
+				default: break;
 		}
 		}
 	}
@@ -96,7 +91,7 @@ public class QuizzAdminConsoleApp {
 		
 	}
 	
-	public static void afficheQuestions(ArrayList<Question> questions) {
+	/*public static void afficheQuestions(ArrayList<Question> questions) {
 		for(int i=0; i<questions.size();i++) {
 			afficheQuestion(i+1,questions.get(i));
 		}
@@ -122,22 +117,13 @@ public class QuizzAdminConsoleApp {
 		}
 		System.out.println("Veuillez saisir le numéro de la bonne réponse (entre 1 et "+nombreReponses+"):");
 		int indexReponse = Integer.parseInt(questionUser.nextLine());
-		//System.out.println(indexReponse+" "+propositions);
 		String bonneReponse = propositions.get(indexReponse-1);
 		
 		Question nouvelleQuestion = new Question(intitule,bonneReponse);
-		//System.out.println("test");
 		nouvelleQuestion.setPropositions(propositions);
-		//demandeQuestion.close();
 		return nouvelleQuestion;
 	}
 	
-	/*public static void supprimeQuestion(ArrayList<Question> questions, Scanner questionUser) {
-		System.out.println("Veuillez indiquer le numéro de la question à supprimer (entre 1 et "+questions.size()+")");
-		int indexSuppr = Integer.parseInt(questionUser.nextLine());
-		questions.remove(indexSuppr-1);
-		
-	}*/
 	
 	public static void startQuizz(ArrayList<Question> questions, Scanner questionUser) {
 		int score = 0;
@@ -153,6 +139,6 @@ public class QuizzAdminConsoleApp {
 			}
 		}
 		System.out.println("Votre score: "+score);
-	}
+	}*/
 
 }
